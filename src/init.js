@@ -53,20 +53,44 @@ $(document).ready(function() {
   
   
   $('.danceWithButton').on('click', function(event) {
-    var partnerOne = dancers[Math.floor(Math.random() * 1000 % dancers.length)];
+    var randIdx = Math.floor(Math.random() * 1000 % dancers.length);
+    var partnerOne = dancers[randIdx];
+    var restOfDancers = dancers.slice();
+    restOfDancers.splice(randIdx,1);
     
-    var partnerTwo = dancers.reduce(function(accumulator, currentValue) {
-      var distanceAccumulator = Math.sqrt(Math.pow(partnerOne.left - accumulator.left, 2) 
-      + Math.pow(partnerOne.top - accumulator.top, 2)); 
-      var distanceCurrentValue = Math.sqrt(Math.pow(partnerOne.left - currentValue.left, 2) 
-      + Math.pow(partnerOne.top - currentValue.top, 2));
-      if (distanceCurrentValue < distanceAccumulator && currentValue !== partnerOne){
-        return currentValue;
-      }
-    }, dancers[0]);
-    console.log(partnerOne);
-    console.log(partnerTwo);
+    var getPT = function(obj1, obj2) {
+      Math.sqrt(Math.pow(obj1.left - obj2.left, 2) 
+      + Math.pow(obj1.top - obj2.top, 2));
+    };
+    
+    var partnerTwo = restOfDancers.reduce(function(accu, cV) {
+      var distAccu = getPT(partnerOne, accu); 
+      var distCV = getPT(partnerOne, cV);
+
+      return distCV < distAccu ? cV : accu;
+    });
+  
+    var switchPlaces = function(obj1, obj2) {
+      var loc1 = {
+        top: obj2.top,
+        left: obj2.left
+      };
+      var loc2 = {
+        top: obj1.top,
+        left: obj1.left
+      };
+      obj1.$node.animate(loc1);
+      obj2.$node.animate(loc2);
+      obj1.$node.css(loc1);
+      obj2.$node.css(loc2);
+      partnerOne.top = loc1.top;
+      partnerOne.left = loc1.left;
+      partnerTwo.top = loc2.top;
+      partnerTwo.left = loc2.left;
+    };
+    switchPlaces(partnerOne, partnerTwo);
   });
+  
 });
 
 $(document).on('click', '.RotatingDancer', function(event) {
