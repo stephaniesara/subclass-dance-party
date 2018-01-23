@@ -1,6 +1,6 @@
-var RotatingDancer = function(top, left, timeBetweenSteps, addedClassName) {
-  Dancer.call(this, top, left, timeBetweenSteps, "is-minion");
-  this.$node = $('<img class="RotatingDancer" src=\"imgs/minion.gif\" alt=\"minion\" width=\'50\' height=\'50\'>');
+var RotatingDancer = function(top, left, timeBetweenSteps) {
+  Dancer.call(this, top, left, timeBetweenSteps, "RotatingDancer");
+  this.$node = $('<img class="RotatingDancer" src=\"imgs/minion.gif\" alt=\"minion\">');
   //var x = document.getElementById("img");
   //this.$node = document.getElementById("img");
   this.setPosition(top, left);
