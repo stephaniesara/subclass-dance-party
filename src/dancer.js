@@ -7,8 +7,8 @@ var Dancer = function(top, left, timeBetweenSteps, className) {
   this.time = timeBetweenSteps;
   this.step();
   this.setPosition(top, left);
-  // this.top = top;
-  // this.left = left;
+  this.top = top;
+  this.left = left;
 };
 
   // use jQuery to create an HTML <span> tag
