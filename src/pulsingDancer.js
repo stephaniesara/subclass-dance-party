@@ -1,11 +1,5 @@
 var PulsingDancer = function(top, left, timeBetweenSteps) {
-  // this.$node = $('<span class="PulsingDancer"></span>');
-  Dancer.call(this, top, left, timeBetweenSteps);
-  this.$node.css({
-    'border': '10px solid blue',
-    'border-radius' : '0px'
-  });
-
+  Dancer.call(this, top, left, timeBetweenSteps, 'PulsingDancer');
 };
 
 PulsingDancer.prototype = Object.create(Dancer.prototype);
@@ -18,11 +12,6 @@ PulsingDancer.prototype.step = function() {
   // toggle() is a jQuery method to show/hide the <span> tag.
   // See http://api.jquery.com/category/effects/ for this and
   // other effects you can use on a jQuery-wrapped html tag.
-  var dancer = this.$node;
-  // var reanimate = function() {
-  //   this.animate({height: '-=20px', width: '-=20px'}, 'slow', 'swing');
-  // };
-  // this.$node.animate({height: '+=10px', width: '+=10px'}, 'slow', 'swing', reanimate.bind(dancer));
   this.$node.animate({height: '+=10px', width: '+=10px'}, 'slow', 'swing');
   this.$node.animate({height: '-=10px', width: '-=10px'}, 'slow', 'swing');
 

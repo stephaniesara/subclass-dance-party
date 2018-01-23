@@ -25,6 +25,11 @@ body, a:link, a:visited, a:active{
   border-radius:10px;
   position:absolute;
 }
-/*.rotatingDancer{
+.PulsingDancer{
+  border: 10px solid blue;
+  border-radius : 0px;
   position:absolute;
-}*/
+}
+.RotatingDancer{
+  position:absolute;
+}
