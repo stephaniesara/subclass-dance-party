@@ -31,22 +31,87 @@ $(document).ready(function() {
     $('body').append(dancer.$node);
   });
 
-
   $('.lineupButton').on('click', function(event) {
-    var width = $("body").width() /dancers.length;
-    var height = $("body").height() / dancers.length;
-    for (var i = 0; i < dancers.length; i++) {
-      if (dancers[i] instanceof BlinkyDancer) {
-        dancers[i].setPosition(height * i, 10);
-      } else if (dancers[i] instanceof PulsingDancer) {
-        dancers[i].setPosition(height * i, $("body").width() - 50);
-
-      } else {
-        dancers[i].setPosition($("body").height()- 50, width*i);
-
+    // var top;
+    // var left;
+    if ($(this).text() === 'Line up!') {
+      $(this).text('Scatter!');
+      // top = $("body").height() / dancers.length;
+      var width = $("body").width() / dancers.length;
+      for (var i = 0; i < dancers.length; i++) {
+        dancers[i].setPosition($("body").height()- 50, width * i); 
+      }
+    } else {
+      $(this).text('Line up!');
+      for (var i = 0; i < dancers.length; i++) {
+        var top = $("body").height() * Math.random();
+        var left = $("body").width() * Math.random();
+        dancers[i].setPosition(top, left); 
       }
     }
   });
-
+  
+  
+  $('.danceWithButton').on('click', function(event) {
+    var partnerOne = dancers[Math.floor(Math.random() * 1000 % dancers.length)];
+    
+    var partnerTwo = dancers.reduce(function(accumulator, currentValue) {
+      var distanceAccumulator = Math.sqrt(Math.pow(partnerOne.left - accumulator.left, 2) 
+      + Math.pow(partnerOne.top - accumulator.top, 2)); 
+      var distanceCurrentValue = Math.sqrt(Math.pow(partnerOne.left - currentValue.left, 2) 
+      + Math.pow(partnerOne.top - currentValue.top, 2));
+      if (distanceCurrentValue < distanceAccumulator && currentValue !== partnerOne){
+        return currentValue;
+      }
+    }, dancers[0]);
+    console.log(partnerOne);
+    console.log(partnerTwo);
+  });
 });
 
+$(document).on('click', '.RotatingDancer', function(event) {
+  var styleSettings;
+  if($(this).height() === 100) {
+    styleSettings = {
+      width: '50px',
+      height: '50px'
+    };
+  } else {
+    styleSettings = {
+      width: '100px',
+      height: '100px'
+    };
+  }
+
+  $(this).css(styleSettings);
+});
+
+$(document).on('mouseenter', '.PulsingDancer', function(event) {
+  var styleSettings = {
+    border: '10px solid pink',
+    
+  };
+  $(this).css(styleSettings);
+});
+$(document).on('mouseleave', '.PulsingDancer', function(event) {
+  var styleSettings = {
+    border: '10px solid blue',
+    
+  };
+  $(this).css(styleSettings);
+});
+
+
+$(document).on('mouseover', '.dancer', function(event) {
+  var top = $("body").height() * Math.random();
+  var left = $("body").width() * Math.random();
+  // var styleSettings = {
+  //   top: top,
+  //   left: left
+  // };
+  // $(this).css(styleSettings);
+  $(this).animate({
+    top: top,
+    left: left
+  });
+});
