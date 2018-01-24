@@ -1,5 +1,9 @@
 var BlinkyDancer = function(top, left, timeBetweenSteps) {
   Dancer.call(this, top, left, timeBetweenSteps);
+  this.$node = $('<img class="dancer">');
+  var imgSource = ['imgs/minion.gif', 'imgs/bmo.gif', 'imgs/peanut.gif'];
+  this.$node.attr('src', imgSource[Math.floor(Math.random() * 100 % imgSource.length)]);
+  this.setPosition(top, left);
 };
 
 BlinkyDancer.prototype = Object.create(Dancer.prototype);
