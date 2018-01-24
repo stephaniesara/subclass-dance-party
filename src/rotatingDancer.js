@@ -1,12 +1,9 @@
 var RotatingDancer = function(top, left, timeBetweenSteps) {
   Dancer.call(this, top, left, timeBetweenSteps, "RotatingDancer");
-  this.$node = $('<img class="RotatingDancer" src=\"imgs/minion.gif\" alt=\"minion\">');
-  //var x = document.getElementById("img");
-  //this.$node = document.getElementById("img");
+  this.$node = $('<img class="RotatingDancer">');
+  var imgSource = ['imgs/minion.gif', 'imgs/bmo.gif', 'imgs/peanut.gif'];
+  this.$node.attr('src', imgSource[Math.floor(Math.random() * 100 % imgSource.length)]);
   this.setPosition(top, left);
-
-  // this.$node = $('<span class="RotatingDancer" ><img src=\"imgs/minion.gif\" alt=\"minion\" width=\'50\' height=\'50\'></span>');
-
 };
 
 RotatingDancer.prototype = Object.create(Dancer.prototype);
@@ -19,5 +16,5 @@ RotatingDancer.prototype.step = function() {
   // toggle() is a jQuery method to show/hide the <span> tag.
   // See http://api.jquery.com/category/effects/ for this and
   // other effects you can use on a jQuery-wrapped html tag.
-  this.$node.rotate({ angle: 0, animateTo:360 });
+  this.$node.rotate({ angle: 0, animateTo:180 });
 };
