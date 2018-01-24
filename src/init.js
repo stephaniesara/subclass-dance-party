@@ -32,17 +32,17 @@ $(document).ready(function() {
   });
 
   $('.lineupButton').on('click', function(event) {
-    // var top;
-    // var left;
+
     if ($(this).text() === 'Line up!') {
       $(this).text('Scatter!');
-      // top = $("body").height() / dancers.length;
       var width = $("body").width() / dancers.length;
+      
       for (var i = 0; i < dancers.length; i++) {
-        dancers[i].setPosition($("body").height()- 50, width * i); 
+        dancers[i].setPosition($("body").height()- 100, width * i); 
       }
     } else {
       $(this).text('Line up!');
+      
       for (var i = 0; i < dancers.length; i++) {
         var top = $("body").height() * Math.random();
         var left = $("body").width() * Math.random();
@@ -61,14 +61,11 @@ $(document).ready(function() {
     var getPT = function(node1, node2) {
       return Math.sqrt(Math.pow(node1.position().left - node2.position().left, 2) 
       + Math.pow(node1.position().top - node2.position().top, 2));
-      // return Math.sqrt(Math.pow(node1.css('left') - node2.css('left'), 2) 
-      // + Math.pow(node1.css('top') - node2.css('top'), 2));
     };
     
     var partnerTwo = restOfDancers.reduce(function(accu, cV) {
       var distAccu = getPT(partnerOne.$node, accu.$node); 
       var distCV = getPT(partnerOne.$node, cV.$node);
-
       return distCV < distAccu ? cV : accu;
     });
   
@@ -93,7 +90,7 @@ $(document).ready(function() {
 
 $(document).on('click', '.RotatingDancer', function(event) {
   var styleSettings;
-  if($(this).height() === 100) {
+  if ($(this).height() === 100) {
     styleSettings = {
       width: '50px',
       height: '50px'
@@ -104,15 +101,14 @@ $(document).on('click', '.RotatingDancer', function(event) {
       height: '100px'
     };
   }
-
   $(this).css(styleSettings);
 });
 
 $(document).on('mouseenter', '.PulsingDancer', function(event) {
   var styleSettings = {
     border: '10px solid pink',
-    
   };
+  
   $(this).css(styleSettings);
 });
 $(document).on('mouseleave', '.PulsingDancer', function(event) {
@@ -127,12 +123,6 @@ $(document).on('mouseleave', '.PulsingDancer', function(event) {
 $(document).on('mouseover', '.dancer', function(event) {
   var top = $("body").height() * Math.random();
   var left = $("body").width() * Math.random();
-  // var styleSettings = {
-  //   top: top,
-  //   left: left
-  // };
-  // $(this).css(styleSettings);
-  // console.log(top);
   $(this).animate({
     top: top,
     left: left
@@ -141,7 +131,4 @@ $(document).on('mouseover', '.dancer', function(event) {
     top: top,
     left: left
   });
-  
-  // console.log($(this).position().top);
-  debugger
 });
