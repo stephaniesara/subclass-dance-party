@@ -56,39 +56,37 @@ $(document).ready(function() {
     var randIdx = Math.floor(Math.random() * 1000 % dancers.length);
     var partnerOne = dancers[randIdx];
     var restOfDancers = dancers.slice();
-    restOfDancers.splice(randIdx,1);
+    restOfDancers.splice(randIdx, 1);
     
-    var getPT = function(obj1, obj2) {
-      Math.sqrt(Math.pow(obj1.left - obj2.left, 2) 
-      + Math.pow(obj1.top - obj2.top, 2));
+    var getPT = function(node1, node2) {
+      return Math.sqrt(Math.pow(node1.position().left - node2.position().left, 2) 
+      + Math.pow(node1.position().top - node2.position().top, 2));
+      // return Math.sqrt(Math.pow(node1.css('left') - node2.css('left'), 2) 
+      // + Math.pow(node1.css('top') - node2.css('top'), 2));
     };
     
     var partnerTwo = restOfDancers.reduce(function(accu, cV) {
-      var distAccu = getPT(partnerOne, accu); 
-      var distCV = getPT(partnerOne, cV);
+      var distAccu = getPT(partnerOne.$node, accu.$node); 
+      var distCV = getPT(partnerOne.$node, cV.$node);
 
       return distCV < distAccu ? cV : accu;
     });
   
-    var switchPlaces = function(obj1, obj2) {
+    var switchPlaces = function(node1, node2) {
       var loc1 = {
-        top: obj2.top,
-        left: obj2.left
+        top: node2.css('top'),
+        left: node2.css('left')
       };
       var loc2 = {
-        top: obj1.top,
-        left: obj1.left
+        top: node1.css('top'),
+        left: node1.css('left')
       };
-      obj1.$node.animate(loc1);
-      obj2.$node.animate(loc2);
-      obj1.$node.css(loc1);
-      obj2.$node.css(loc2);
-      partnerOne.top = loc1.top;
-      partnerOne.left = loc1.left;
-      partnerTwo.top = loc2.top;
-      partnerTwo.left = loc2.left;
+      node1.animate(loc1);
+      node2.animate(loc2);
+      node1.css(loc1);
+      node2.css(loc2);
     };
-    switchPlaces(partnerOne, partnerTwo);
+    switchPlaces(partnerOne.$node, partnerTwo.$node);
   });
   
 });
@@ -134,8 +132,16 @@ $(document).on('mouseover', '.dancer', function(event) {
   //   left: left
   // };
   // $(this).css(styleSettings);
+  // console.log(top);
   $(this).animate({
     top: top,
     left: left
   });
+  $(this).css({
+    top: top,
+    left: left
+  });
+  
+  // console.log($(this).position().top);
+  debugger
 });
